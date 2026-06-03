@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      href="resources/favicon.ico"
+      type="image/x-icon"
+      sizes="96x96"
+    />
+
+    <title>Bank Dashboard - HBank | devChallenges.io</title>
+
+    <style>
+
+      .grid-border-commons {
+        border: 2px solid grey;
+      }
+
+      body {
+        height: 100vh;
+        width: 100vw;
+        margin: 0px;
+        background-color: #2B2F3E;
+      }
+      
+      .payment-page-grid{
+        display: grid;
+        width: 100%;
+        grid-template-columns: max-content 1fr;
+        grid-template-rows: auto auto;
+        min-width: 0;
+      }
+
+      .author-info {
+        font-size: 14px;
+        text-align: center;
+        margin-top: 16px;
+        color: rgb(55, 65, 81);
+      }
+
+      .author-info a {
+        text-decoration: none;
+      }
+
+      #nav-upper{
+        display: flex;              
+        height: 50px;
+        font-size: 1rem;
+        grid-column: span 2;
+        align-items: center;
+        border-bottom: 2px solid grey ;
+        justify-content: space-between;
+        container-type: inline-size;
+      }
+
+      #nav-upper-logo-box{
+        width: clamp(60px, 20vw, 99px);
+        aspect-ratio: 99 / 32;
+        margin-left: 6px;
+
+      }
+      #nav-upper-profile-box{ 
+        display: flex;
+        align-items: center;
+        margin-right: 6px;
+        justify-content: flex-end; 
+        gap: 10px; 
+      }
+      #nav-side-bar{
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: max-content;
+        margin: 0px 0px 0px clamp(2px, 1vw, 30px);
+        padding: 10px;
+        justify-content: left;
+        font-size: clamp(0.6rem, 0,7em, 0.9rem);
+        padding-top: 10px;
+        border-right: 2px solid grey ;
+      }
+      .nav-side-bar-selection-boxes{
+        display: flex;
+        align-content: center;
+        justify-content: left;
+        align-items: center;
+        justify-items: left;
+        gap: 5px;
+        color:whitesmoke;
+        width: max-content;        
+        
+      }
+      .nav-side-bar-hidables{ 
+        display: block;
+      }
+      .nav-side-bar-title{
+        width: max-content;
+        font-size: clamp(0px, 1.02em, 2rem);
+        color: grey;
+        margin: 20px 0px 20px 0;
+      }
+      .nav-side-bar-notification-number{ 
+        display: hide;
+        margin-left: 20px;
+      }
+      .nav-side-bar-notification-new{ 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 999px;      /* makes it capsule */
+        background: hsl(316, 67%, 44%);
+        color: white;
+        height: 1.1em;
+        width: max-content;
+        margin-left: clamp(2px, 2vw, 40px);
+      }
+      .nav-side-bar-notification-tickets{ 
+        display: flex;
+        box-sizing: border-box;
+        justify-content: center;
+        align-items: center;
+        margin-left: clamp(2px, 2vw, 40px);
+        border-radius: 999px;      /* makes it capsule */
+        background: hsl(300, 2%, 12%);
+        color: white;
+        height: 1em;
+        width: 25px;
+      }
+      .nav-logout-box{ 
+        display: flex;
+        flex-direction: column;
+        margin-top: auto;
+      }
+      .nav-content-box{ 
+        box-sizing: border-box;
+        display: flex;
+        padding: 10px 10px 10px 10px;
+        gap: 10px;
+        justify-content:flex-start;
+        width: 100%;
+        min-width: 0px;
+      } 
+      .inventory-details-card{
+        border: 2px grey solid;
+        padding: 10px;
+        border-radius: 9px;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+        font-size: 0.9rem;
+        font-weight: 200;
+        color: aliceblue;
+        align-content: center ;
+        gap: 2%;
+        flex: 1 1 clamp(0px, 90%, 500px);
+        min-width: 200px;
+      }
+      .card-details-column{
+        border: 2px grey solid;
+        padding: 10px;
+        border-radius: 9px;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+        font-size: 0.9rem;
+        font-weight: 200;
+        color: aliceblue;
+        align-content: center;
+        justify-content: space-between;
+        justify-self: center;
+        flex: 1 1 10%;
+      }
+      .inventory-details-title{
+        font-size: 0.9rem;
+      }
+      #inventory-detils-id{
+        display: block;
+      }
+      .inventory-balance-card{
+        box-sizing: border-box;
+        aspect-ratio: 32/9; 
+        width: clamp(10px, 100%, 950px);
+        border: 2px solid grey;
+        border-radius: 9px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+      }
+      .inventory-balance-display-card{
+        width: 50%;
+        background-color: #E3ECE7;
+        padding: 15px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        color: black;
+        justify-content:space-between;
+      }
+      .inventory-balance-display-card-numbers-title{
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.75em;
+        font-weight: 300;
+      }
+      .inventory-balance-display-card-numbers-balance{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 1.5em;
+        font-weight: 1000;
+      }
+      .inventory-balance-display-card-numbers-count{
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.75em;
+        font-weight: 400;
+      }
+      .inventory-decoration-display-card{
+        width: 50%;
+        background-color: #73AF6F;
+        padding: 15px;
+        position: relative;
+      }
+      .image-decroation{
+        width: 100%;
+        height: 100%;
+      }
+      .inventory-decoration-display-button{ 
+        position: absolute;
+        transform: translate(calc(-100% - 15px), calc(-100% - 15px));
+        top: 100%;
+        left: 100%;
+        width: max-content;
+        height: 20px;
+        border-radius: 50px;
+        background-color: #E3ECE5;
+        border: 2px solid #ccc;
+        display: flex;
+        justify-content: center;
+      }
+      .card-balance-card{
+        margin-left: clamp(7px, 0.55cqi, 20px);
+        border: 2px grey solid;
+        aspect-ratio: 16/9;
+        width: clamp(20px,10vw,50px);
+      }
+      .card-details-card{
+        border: 2px grey solid;
+        border-radius: 9px;
+        aspect-ratio: 16/9;
+        width: clamp(150px, 20vw, 400px);
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        overflow: hidden;
+        min-width: 0; 
+        min-height: 0;
+        font-size: clamp(9px, 0.9vw, 400px);
+      }
+      .card-details-upper{ 
+        height: calc(100% * 2 / 3);
+        background-color: #F6DDC9;
+        display: flex;
+        flex-direction: column;
+        overflow:hidden;
+        min-height: 0;
+        min-width: 0;
+        box-sizing: border-box ;
+        padding: 7% 5% 12% 7%;
+        font-size: 1em;
+        align-content: flex-start;
+        gap: 30%;
+      }
+      
+     .card-details-upper-rows{ 
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;  
+        color: black;   
+      }
+
+      #card-bug-image{
+        aspect-ratio: 34/27;
+        width: clamp(1px, 10%, 1000px);
+      }
+      .card-details-upper-row2{ 
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;    
+        color: black; 
+      }
+      .card-details-lower{ 
+        height: calc(100% * 1 / 3);
+        background-color: #EAAE7A; 
+        box-sizing: border-box ;
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        font-weight: 300;
+        color: black;
+        width: 100%;
+        justify-content: space-between;
+        align-content: center;
+      } 
+      .card-details-lower-key{ 
+        font-size:clamp(0.3rem, 1em, 2rem);
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+      }
+      .card-details-add-card{ 
+        border: 2px dotted grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .card-details-lower-value{ 
+        aspect-ratio: 3/1;
+        justify-content: end;
+        width: 1.7em;
+        flex-shrink: 0;
+      }   
+      #credit-card-logo{
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* or cover */
+      } 
+      .ESG-card{
+        box-sizing: border-box;
+        border: 2px solid grey;
+        width: 100%;
+        font-size: 0.5em ;
+        border-radius: 5px;
+        padding: 5px;
+        gap: 1px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+        justify-content: space-between;
+      }
+      .ESG-card-earnings{ 
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 10px 10px;
+        align-self: center;
+        gap: 6px;
+        color: darkgray;
+      }
+      .ESG-earnings-graph-container{
+        grid-row:span 2; 
+        background-color: #73AF6F ;
+        border-radius: 5px;
+        aspect-ratio: 1 / 1;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+      }
+      .ESG-earnings-graph{
+        width: 50%;
+        aspect-ratio: 1 / 1;
+      }
+      .ESG-earnings-title{ 
+        font-size: 2em;
+      }
+      #nav-upper-username{ 
+        font-size: clamp(10px, 1.3cqi, 20px);
+        color: whitesmoke;
+      }
+
+      .daily-transaction-limit-capsule{ 
+        display: flex;
+        border-radius: 3px;
+        width: 100%;
+        height: 10px;
+        flex-direction: row;
+        background-color: white;
+      }
+      .daily-transaction-limit-capsule-green{ 
+        background-color: #73AF6F;
+        border-radius: 3px;
+        flex: 1;
+      }
+      .daily-transaction-limit-capsule-white{ 
+        background-color: white;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        flex: 3;
+      }
+
+     @media (max-width: 700px){
+      .daily-transaction-limit-capsule{
+        min-height: 10px;
+      }
+      .inventory-details-card{
+        flex: 0;
+      }
+      .ESG-card{
+        box-sizing: border-box;
+        border: 2px solid grey;
+        width: 100%;
+        font-size: 0.5em ;
+        border-radius: 5px;
+        padding: 5px;
+        display: grid;
+        grid-template-rows: repeat(auto-fit, minmax(10px, 1fr));
+        grid-template-columns: auto;
+        gap: 10px;
+      }
+      .nav-content-box{
+        flex-direction: column;
+      }
+       #inventory-detils-id{
+        display: none;
+       }
+      .inventory-balance-card{ 
+        display: none;
+      }
+      .nav-side-bar-selection-boxes{
+        justify-content: left;
+      }
+      #nav-side-bar{
+        gap: 17px;
+        width: max-content;
+        margin-left: 3px;
+      }
+      .nav-side-bar-hide-logo{
+        display: none;
+      }
+      .nav-side-bar-notification-new{ 
+        display: none;
+      }
+      .nav-side-bar-notification-tickets{
+        display: none;
+      }
+      .nav-side-bar-title{
+        display: none;
+      }
+    }
+      
+    </style>
+  </head>
+  <body>
+    <div class="payment-page-grid">
+        <div id="nav-upper">
+          <div id="nav-upper-logo">
+            <img id="nav-upper-logo-box" src="resources/hbank-logo.svg" style="aspect-ratio: 99/32 ;" alt="HBank">
+          </div>
+          <div id="nav-upper-profile-box">
+            <div><img src="resources/avatar.png" alt="Profile"></div>
+            <div id="nav-upper-username";>Ethan Sutcliffe</div>
+          </div>
+        </div>
+        <!-- Navigation Sidebar -->
+        <div id="nav-side-bar">
+          <div class="nav-side-bar-selection-boxes">
+            <div><img src="resources/House.svg" alt="Profile"></div>
+            <div class="nav-side-bar-hide-logo">Dashboard</div>
+          </div>
+        <div class="nav-side-bar-title">ANALYTICS</div>
+          <div class="nav-side-bar-selection-boxes">
+            <div><img src="resources/show chart-1.svg" alt="upward-chart"></div>
+            <div class="nav-side-bar-hide-logo">Performance</div>
+          </div>
+          <div class="nav-side-bar-selection-boxes">
+            <div><img src="resources/Archery.svg" alt="archery"></div>
+            <div class="nav-side-bar-hide-logo">Hotjar</div>
+            <div class="nav-side-bar-notification-new">New</div>
+          </div>
+        <div class="nav-side-bar-title">SUPPORT</div>
+          <div class="nav-side-bar-selection-boxes">
+            <div><img src="resources/ticket.svg" alt="ticket"></div>
+            <div class="nav-side-bar-hide-logo">Tickets</div>
+            <div class="nav-side-bar-notification-tickets">10</div>
+          </div>
+          <div class="nav-side-bar-selection-boxes">
+              <div><img src="resources/account.svg" alt="account"></div>
+              <div class="nav-side-bar-hide-logo">Agents</div>
+          </div>
+          <div class="nav-side-bar-selection-boxes"><div>
+              <img src="resources/users.svg" alt="users"></div>
+              <div class="nav-side-bar-hide-logo">Customer</div>
+          </div>
+        <div class="nav-side-bar-title">SHOP</div>
+          <div class="nav-side-bar-selection-boxes">
+            <div><img src="resources/shop.svg" alt="shop"></div>
+            <div class="nav-side-bar-hide-logo">Products</div>
+          </div>
+          <div class="nav-side-bar-selection-boxes">
+            <div><img src="resources/basket.svg" alt="basket"></div>
+            <div class="nav-side-bar-hide-logo">Orders</div>
+          </div>
+          <div class="nav-side-bar-selection-boxes">
+            <div><img src="resources/chat info.svg" alt="chat-msg"></div>
+            <div class="nav-side-bar-hide-logo">Reports</div>
+          </div>
+          <div class="nav-logout-box">
+            <div class="nav-side-bar-selection-boxes">
+              <div><img src="resources/Setting.svg" alt="Settings"></div>
+              <div class="nav-side-bar-hide-logo">Settings</div>
+            </div>
+            <div class="nav-side-bar-selection-boxes">
+              <div><img src="resources/Logout.svg" alt="Logout"></div>
+              <div class="nav-side-bar-hide-logo">Logout</div>
+            </div>
+          </div>
+        </div>
+        <!-- Navigation Sidebar ends -->
+         <!-- Navigation content box -->
+        <div class="nav-content-box">
+          <div class="inventory-details-card">
+            <div id="inventory-detils-id" class="inventory-details-title">Inventory details</div>
+            <div class="inventory-balance-card ">
+              <div class="inventory-balance-display-card">
+                <div class="inventory-balance-display-card-numbers-title">Your balance:</div>
+                <div class="inventory-balance-display-card-numbers-balance">$25,330</div>
+                <div class="inventory-balance-display-card-numbers-title">3 cards</div>
+              </div>
+              <div class="inventory-decoration-display-card">
+                <img class="image-decroation" src="resources/background-decor.svg" alt="background-decor">
+                <button class="inventory-decoration-display-button"><div>Details →</div></button>
+              </div>
+            </div>
+            <div class="inventory-details-title">Inventory details</div>
+            <div  class="card-details-card" >
+              <div class="card-details-upper">
+                <div class="card-details-upper-rows">
+                  <div>Shopping card</div>
+                  <img id="card-bug-image" src="resources/card.svg" alt="card-bug-img"> 
+                </div>
+                <div class="card-details-upper-rows">
+                  <div>NAME</div>
+                  <div>Exp 26/6</div>
+                </div>
+              </div> 
+              <div class="card-details-lower">
+                <div class="card-details-lower-key">
+                  <div>****</div>
+                  <div>****</div>
+                  <div>****</div>
+                  <div>0928</div>
+                </div>
+                <img class="card-details-lower-value" src="resources/visa-logo.svg" alt="visa-logo">
+              </div> 
+            </div>
+            <div class="card-details-card card-details-add-card" >
+              <div>Add card</div>
+            </div>
+            <div class="ESG-card">
+              <div class="ESG-card-earnings">
+                <div class="ESG-earnings-graph-container">
+                  <img class="ESG-earnings-graph" src="resources/show chart.svg" alt="upward-chart">
+                </div>
+                <div class="ESG-earnings-title">Earnings</div>
+                <div class="ESG-earnings-title">12,341 $</div>
+              </div>
+              <div class="ESG-card-earnings">
+                <div style="background-color: purple;" class="ESG-earnings-graph-container">
+                  <img class="ESG-earnings-graph" src="resources/Archery.svg" alt="upward-chart">
+                </div>
+                <div class="ESG-earnings-title">Spendings</div>
+                <div class="ESG-earnings-title">4,009 $</div>
+              </div>
+              <div class="ESG-card-earnings">
+                <div style="background-color: orange;" class="ESG-earnings-graph-container">
+                  <img class="ESG-earnings-graph" src="resources/aim.svg" alt="upward-chart">
+                </div>
+                <div class="ESG-earnings-title">Goals</div>
+                <div class="ESG-earnings-title">8,098 $</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-details-column">
+            <div>
+              <div class="inventory-details-title">Card details</div>
+              <div style="height: 200px; aspect-ratio: 9/16;">
+                <div  style="transform: rotate(90deg) translateY(-100%); transform-origin: top left; width: 200px;" class="card-details-card" >
+                  <div class="card-details-upper">
+                    <div class="card-details-upper-rows">
+                      <div>Shopping card</div>
+                      <img id="card-bug-image" src="resources/card.svg" alt="card-bug-img"> 
+                    </div>
+                    <div class="card-details-upper-rows">
+                      <div>NAME</div>
+                      <div>Exp 26/6</div>
+                    </div>
+                  </div> 
+                  <div class="card-details-lower">
+                    <div class="card-details-lower-key">
+                      <div>****</div>
+                      <div>****</div>
+                      <div>****</div>
+                      <div>0928</div>
+                    </div>
+                    <img class="card-details-lower-value" src="resources/visa-logo.svg" alt="visa-logo">
+                  </div> 
+                </div>
+              </div>
+            </div>
+            <div>
+            <div class="inventory-details-title">Card number</div>
+              <div class="card-details-lower-key" style="align-self: self-start; gap:10px">
+                <div>****</div>
+                <div>****</div>
+                <div>****</div>
+                <div>7048</div>
+              </div>
+            </div>
+            <div class="inventory-details-title">Spending limits</div>
+            <div>
+              <div>Daily transaction limit</div> 
+              <div class="daily-transaction-limit-capsule">
+                <div class="daily-transaction-limit-capsule-green"></div>
+                <div class="daily-transaction-limit-capsule-white"></div>
+              </div>
+            </div>
+            <div>400$ spent of 2000$</div>
+          </div>
+        </div>
+        <!-- Navigation content box ends -->
+    </div>
+  </body>
+</html>

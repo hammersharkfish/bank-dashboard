@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sidebar Dashboard</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 240px;
+      height: 100vh;
+      background: #1f2430;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    /* Header */
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Sections */
+    .section-title {
+      font-size: 12px;
+      color: #888;
+      margin: 16px 0 8px;
+    }
+
+    /* Nav list */
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Links */
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+    }
+
+    .nav-link:hover {
+      background: #2a3040;
+    }
+
+    .nav-link.active {
+      background: #2a3040;
+    }
+
+    /* Bottom section */
+    .sidebar-bottom {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Dummy main content */
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <nav class="sidebar">
+    <!-- Logo -->
+    <div class="sidebar-header">
+      <span class="logo">💳</span>
+      <span class="brand">HBank</span>
+    </div>
+
+```
+<!-- Main Navigation -->
+<ul class="nav-list">
+  <li>
+    <a href="#" class="nav-link active">
+      <span class="icon">🏠</span>
+      <span>Dashboard</span>
+    </a>
+  </li>
+</ul>
+
+<!-- Section -->
+<p class="section-title">ANALYTICS</p>
+<ul class="nav-list">
+  <li>
+    <a href="#" class="nav-link">
+      <span class="icon">📈</span>
+      <span>Performance</span>
+    </a>
+  </li>
+  <li>
+    <a href="#" class="nav-link">
+      <span class="icon">🔥</span>
+      <span>Hotjar</span>
+    </a>
+  </li>
+</ul>
+
+<p class="section-title">SUPPORT</p>
+<ul class="nav-list">
+  <li>
+    <a href="#" class="nav-link">
+      <span class="icon">🎫</span>
+      <span>Tickets</span>
+    </a>
+  </li>
+  <li>
+    <a href="#" class="nav-link">
+      <span class="icon">👤</span>
+      <span>Agents</span>
+    </a>
+  </li>
+  <li>
+    <a href="#" class="nav-link">
+      <span class="icon">👥</span>
+      <span>Customers</span>
+    </a>
+  </li>
+</ul>
+
+<p class="section-title">SHOP</p>
+<ul class="nav-list">
+  <li>
+    <a href="#" class="nav-link">
+      <span class="icon">📦</span>
+      <span>Products</span>
+    </a>
+  </li>
+  <li>
+    <a href="#" class="nav-link">
+      <span class="icon">🧾</span>
+      <span>Orders</span>
+    </a>
+  </li>
+  <li>
+    <a href="#" class="nav-link">
+      <span class="icon">📊</span>
+      <span>Reports</span>
+    </a>
+  </li>
+</ul>
+
+<!-- Bottom -->
+<div class="sidebar-bottom">
+  <a href="#" class="nav-link">
+    <span class="icon">⚙️</span>
+    <span>Settings</span>
+  </a>
+  <a href="#" class="nav-link">
+    <span class="icon">🚪</span>
+    <span>Logout</span>
+  </a>
+</div>
+```
+
+  </nav>
+
+  <div class="content">
+    <h1>Main Content Area</h1>
+    <p>This is just placeholder content.</p>
+  </div>
+
+</body>
+</html>

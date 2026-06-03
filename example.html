@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+.grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: auto auto;
+  background: #222;
+}
+#topbar{
+    grid-column: span 2;
+    color: aliceblue;
+} 
+#sidebar {
+  background: crimson;
+  color: white;
+  width: max-content;
+  margin-left: clamp(2px, 8%, 30px);
+    min-width: 0;
+
+}
+
+#content {
+  background: steelblue;
+  color: white;
+}
+</style>
+<body>
+ <div class="grid">
+  <div id="topbar">topbar</div>
+  <div id="sidebar">SIDEBAR 1 2 3 4 </div>
+  <div id="content">DONT overlap</div>
+</div>
+</body>
