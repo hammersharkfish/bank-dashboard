@@ -20,8 +20,8 @@
       }
 
       body {
-        height: 100vh;
-        width: 100vw;
+        height: 100dvh;
+        width: 100dvw;
         margin: 0px;
         background-color: #2B2F3E;
       }
@@ -137,7 +137,7 @@
       .nav-content-box{ 
         box-sizing: border-box;
         display: flex;
-        padding: 10px 10px 10px 10px;
+        padding: 10px 20px 10px 10px;
         gap: 10px;
         justify-content:flex-start;
         width: 100%;
@@ -155,7 +155,8 @@
         color: aliceblue;
         align-content: center ;
         gap: 2%;
-        flex: 1 1 clamp(0px, 90%, 500px);
+        flex: 0 0 auto; 
+        width: clamp(0px, 60%, 500px);
         min-width: 200px;
       }
       .card-details-column{
@@ -171,7 +172,8 @@
         align-content: center;
         justify-content: space-between;
         justify-self: center;
-        flex: 1 1 10%;
+        width: 40%;
+        flex: 1 1 auto;
       }
       .inventory-details-title{
         font-size: 0.9rem;
@@ -393,6 +395,10 @@
       }
       .inventory-details-card{
         flex: 0;
+        width: 100%;
+      }
+      .card-details-column{
+        width: 100%;
       }
       .ESG-card{
         box-sizing: border-box;
